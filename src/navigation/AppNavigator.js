@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { AuthContext } from "../provider/AuthProvider";
+import { NativeBaseProvider } from "native-base";
 
 // IMPORT MAIN SCREENS HERE
 
@@ -11,6 +12,7 @@ import Signup from "../screens/auth/Signup";
 
 // put supabase stuff here?
 import Home from "../screens/main/Home";
+import ProfileCreator from "../screens/main/ProfileCreator";
 
 
 const AuthStack = createNativeStackNavigator();
@@ -36,18 +38,23 @@ const Main = () => {
         headerShown: false,
       }}
     >
-      <MainStack.Screen name="Home" component={Home} />
+      {/* <MainStack.Screen name="Home" component={Home} /> */}
+      <MainStack.Screen name = "ProfileCreator" component = {ProfileCreator}/>
     </MainStack.Navigator>
   );
 };
 
 export default () => {
-   const auth = useContext(AuthContext);
-   const user = auth.user;
+   const {session} = useContext(AuthContext);
   return (
+    <NativeBaseProvider>
      <NavigationContainer>
-       {!user && <Auth />}
-       {user && <Main />}
+     {session === null || session.user === null ? (
+        <Auth />
+        ) : (
+        <Main />
+    )}
      </NavigationContainer>
+     </NativeBaseProvider>
   );
 };

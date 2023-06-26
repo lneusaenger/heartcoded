@@ -17,7 +17,7 @@ const Signup = ({navigation}) => {
               })
               if (error) alert(error.message)
               else {
-                alert('Check your email for the login link!')
+                alert('Successfully signed up!')
               }
         }
       };

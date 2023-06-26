@@ -4,29 +4,20 @@ import { supabase } from '../supabase';
 const AuthContext = createContext({});
 
 const AuthProvider = (props) => {
-    const [user, setUser] = useState(false);
-    const [session, setSession] = useState(null);
-  
-    useEffect(() => {
-      const session = supabase.auth.getSession();
-      if(session){
-        setSession(session);
-        setUser(true);
-      }
-      supabase.auth.onAuthStateChange(
-        async (event, session) => {
-          console.log(`Supabase auth event: ${event}`);
-          setSession(session);
-          setUser(session ? true : false);
-        }
-      );
-    //   return () => {
-    //     authListener.unsubscribe();
-    //   };
-    }, [user]);
+    const [session, setSession] = useState(null)
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session)
+    })
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
+    })
+  }, [])
   
     return (
-      <AuthContext.Provider value={{ user, session }}>
+      <AuthContext.Provider value={{session }}>
         {props.children}
       </AuthContext.Provider>
     );
