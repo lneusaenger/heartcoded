@@ -18,6 +18,7 @@ const Signup = ({navigation}) => {
               if (error) alert(error.message)
               else {
                 alert('Successfully signed up!')
+                navigation.navigate("ProfileCreator");
               }
         }
       };

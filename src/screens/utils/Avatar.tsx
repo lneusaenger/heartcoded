@@ -108,7 +108,7 @@ export default function Avatar({ url, size = 150, onUpload }: Props) {
 
 const styles = StyleSheet.create({
   avatar: {
-    borderRadius: 5,
+    borderRadius: 20,
     overflow: 'hidden',
     maxWidth: '100%',
   },
