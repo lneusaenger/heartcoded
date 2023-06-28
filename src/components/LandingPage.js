@@ -1,6 +1,7 @@
 
 import { Text } from "react-native";
 import { StyleSheet } from "react-native";
+import API from "./API";
 
 const styles = StyleSheet.create({
     text: {
@@ -11,7 +12,8 @@ const styles = StyleSheet.create({
 
 export default function LandingPage(){
     return(<>
-    <Text style={styles.text}>heyyyyyyyyyyy</Text>
+    <Text style={styles.text}>Landing Page baby</Text>
+    <API />
     
     </>);
 }
