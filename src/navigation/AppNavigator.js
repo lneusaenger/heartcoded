@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { AuthContext } from "../provider/AuthProvider";
 import { NativeBaseProvider } from "native-base";
 import { supabase } from "../supabase";
+import { Alert } from "react-native";
 
 // IMPORT MAIN SCREENS HERE
 
@@ -47,10 +48,8 @@ const Main = () => {
 
 export default () => {
     const { session } = useContext(AuthContext);
-    const [firstName, setFirstName] = useState(null); // Use state to store the retrieved firstName
   
-    useEffect(() => {
-      const fetchFirstName = async () => {
+    const fetchFirstName = async () => {
         if (session && session.user) {
           try {
             let { data, error, status } = await supabase
@@ -58,26 +57,31 @@ export default () => {
               .select(`first_name`)
               .eq('id', session.user.id)
               .single();
-  
+      
             if (error && status !== 406) {
               throw error;
             }
-  
-            if (data) {
-              setFirstName(data.first_name);
+      
+            if (data.first_name) {
+                Alert.alert("returning " + data.first_name);
+              return data.first_name; // Return the first name as a string
+            } else {
+                Alert.alert("returning null")
+              return null; // Return an empty string if the first name is not available
             }
           } catch (error) {
-            console.error(error);
+            Alert.alert(error);
+            return null; // Return an empty string in case of an error
           }
         }
+        return null; // Return an empty string if there is no session or user
       };
-      fetchFirstName();
-    }, []);
+      
   
     return (
       <NativeBaseProvider>
         <NavigationContainer>
-          {session === null || session.user === null || firstName === null ? (
+          {fetchFirstName() === null || session === null || session.user === null ? (
             <Auth />
           ) : (
             <Main />
@@ -86,4 +90,3 @@ export default () => {
       </NativeBaseProvider>
     );
   };
-  

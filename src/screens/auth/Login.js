@@ -17,7 +17,6 @@ const Login = ({navigation}) => {
           })
       
           if (error) alert(error.message)
-          setLoading(false)
         }
     }
     
