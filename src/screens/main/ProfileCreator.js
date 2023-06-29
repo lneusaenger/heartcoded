@@ -35,8 +35,7 @@ export default function ProfileCreator({navigation}) {
   const [gender, setGender] = useState("man");
   const [preference, setPreference] = useState("women");
   const [avatar, setAvatar] = useState('');
-
-
+  
   useEffect(() => {
     if (session) getProfile();
   }, [session]);
@@ -107,6 +106,8 @@ export default function ProfileCreator({navigation}) {
     } finally {
       setLoading(false);
       Alert.alert("Successfully updated profile!")
+      const { data, error } = await supabase.auth.refreshSession();
+      const {session, user} = data;
     }
   }
 
