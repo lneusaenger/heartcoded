@@ -35,7 +35,7 @@ export default function ProfileCreator({navigation}) {
   const [gender, setGender] = useState("man");
   const [preference, setPreference] = useState("women");
   const [avatar, setAvatar] = useState('');
-
+  
   useEffect(() => {
     if (session) getProfile();
   }, [session]);

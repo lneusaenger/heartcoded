@@ -6,6 +6,8 @@ import { NativeBaseProvider } from "native-base";
 import { supabase } from "../supabase";
 import { Alert } from "react-native";
 
+
+
 // IMPORT MAIN SCREENS HERE
 
 // Auth screens
@@ -15,6 +17,9 @@ import Signup from "../screens/auth/Signup";
 // put supabase stuff here?
 import Home from "../screens/main/Home";
 import ProfileCreator from "../screens/main/ProfileCreator";
+
+//Import Components
+import LandingPage from "../components/LandingPage";
 
 
 const AuthStack = createNativeStackNavigator();
