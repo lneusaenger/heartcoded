@@ -5,20 +5,17 @@ import { AuthContext } from "../provider/AuthProvider";
 import { NativeBaseProvider } from "native-base";
 import { supabase } from "../supabase";
 import { Alert } from "react-native";
-
-
-
-// IMPORT MAIN SCREENS HERE
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
+import Profile from "../screens/main/Profile";
 
 // Auth screens
 import Login from "../screens/auth/Login";
 import Signup from "../screens/auth/Signup";
 
-// put supabase stuff here?
+// Main Screens
 import Home from "../screens/main/Home";
 import ProfileCreator from "../screens/main/ProfileCreator";
-
-//Import Components
 import LandingPage from "../screens/main/LandingPage";
 
 
@@ -70,6 +67,8 @@ const Main = () => {
     fetchFirstName(); // Call the fetch function when the component mounts
   }, [session]);
 
+  const MainStack = createBottomTabNavigator();
+
   return (
     <MainStack.Navigator
       screenOptions={{
@@ -80,8 +79,27 @@ const Main = () => {
         <MainStack.Screen name="ProfileCreator" component={ProfileCreator} />
       ) : (
         <>
-          <MainStack.Screen name="LandingPage" component={LandingPage} />
-          <MainStack.Screen name="Home" component={Home} />
+          <MainStack.Screen name="LandingPage"
+          component={LandingPage}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="heart" color='deeppink' size={size} />
+            ),
+          }} />
+          <MainStack.Screen name="Home"
+          component={Home}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="heart" color='deeppink' size={size} />
+            ),
+          }} />
+          <MainStack.Screen name="Profile"
+          component={Profile}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="heart" color='deeppink' size={size} />
+            ),
+          }} />
         </>
       )}
     </MainStack.Navigator>

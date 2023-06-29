@@ -7,7 +7,7 @@ import { Radio, Stack, TextArea, Center, Heading, ScrollView, VStack, Divider, S
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { NativeBaseProvider } from 'native-base';
 import { Text } from 'react-native';
-import Avatar from '../utils/Avatar';
+import Avatar from '../../components/Avatar';
 
 export default function ProfileCreator({navigation}) {
   const {session} = useContext(AuthContext);

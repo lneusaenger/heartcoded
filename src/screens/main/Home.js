@@ -13,7 +13,7 @@ export default function Home({ navigation }) {
     <View style={styles.container}>
         <Box alignItems = 'center'>
             <Stack>
-        <Heading>Hello {session && session.user && session.user.password}</Heading>
+        <Heading>Hello {session && session.user && session.user.email}</Heading>
         <Button onPress={() => supabase.auth.signOut()} colorScheme={'rose'}>LOGOUT</Button>
         </Stack>
         </Box>

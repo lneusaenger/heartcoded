@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { supabase } from '../../supabase'
+import { supabase } from '../supabase'
 import { StyleSheet, View, Alert, Image, Button } from 'react-native'
 import DocumentPicker, { isCancel, isInProgress, types } from 'react-native-document-picker'
 
