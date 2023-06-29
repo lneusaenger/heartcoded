@@ -66,7 +66,7 @@ export default function API() {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Here is the API component</Text>
-      <Text style={styles.text}>heyyyyyyyyyyy</Text>
+      <Text style={styles.text}>🕺 </Text>
       <TextInput
         style={styles.input}
         placeholder="Enter your text"
