@@ -12,7 +12,6 @@ const styles = StyleSheet.create({
 
 export default function LandingPage(){
     return(<>
-    <Text style={styles.text}>Landing Page baby</Text>
     <API />
     
     </>);
