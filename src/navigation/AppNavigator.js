@@ -8,6 +8,7 @@ import { Alert } from "react-native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import Profile from "../screens/main/Profile";
+import { MaterialIcons } from '@expo/vector-icons';
 
 // Auth screens
 import Login from "../screens/auth/Login";
@@ -73,6 +74,9 @@ const Main = () => {
     <MainStack.Navigator
       screenOptions={{
         headerShown: false,
+        tabBarLabelStyle: { //remove this if you want the tab labels to show
+            display: "none"
+          },
       }}
     >
       {firstName === null ? (
@@ -83,21 +87,21 @@ const Main = () => {
           component={LandingPage}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="heart" color='deeppink' size={size} />
+              <MaterialIcons name="flight-land" color='deeppink' size={size} />
             ),
           }} />
-          <MainStack.Screen name="Home"
+          <MainStack.Screen name = "Home"
           component={Home}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="heart" color='deeppink' size={size} />
+              <Ionicons name="home" color='deeppink' size={size} />
             ),
           }} />
           <MainStack.Screen name="Profile"
           component={Profile}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="heart" color='deeppink' size={size} />
+              <MaterialIcons name="face-retouching-natural" color='deeppink' size={size} />
             ),
           }} />
         </>
