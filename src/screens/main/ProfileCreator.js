@@ -106,6 +106,8 @@ export default function ProfileCreator({navigation}) {
     } finally {
       setLoading(false);
       Alert.alert("Successfully updated profile!")
+      const { data, error } = await supabase.auth.refreshSession();
+      const {session, user} = data;
     }
   }
 

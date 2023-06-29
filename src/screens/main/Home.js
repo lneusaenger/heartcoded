@@ -9,15 +9,11 @@ export default function Home({ navigation }) {
     const auth = useContext(AuthContext);
     const session = auth.session;
 
-    const logout = () => {
-
-    }
-
   return (
     <View style={styles.container}>
         <Box alignItems = 'center'>
             <Stack>
-        <Heading>Hello {session && session.user && session.user.email}</Heading>
+        <Heading>Hello {session && session.user && session.user.password}</Heading>
         <Button onPress={() => supabase.auth.signOut()} colorScheme={'rose'}>LOGOUT</Button>
         </Stack>
         </Box>

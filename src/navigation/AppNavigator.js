@@ -27,7 +27,6 @@ const Auth = () => {
       }}>
       <AuthStack.Screen name="Login" component={Login} />
       <AuthStack.Screen name="Signup" component={Signup} />
-      <AuthStack.Screen name = "ProfileCreator" component = {ProfileCreator}/>
     </AuthStack.Navigator>
   );
 };
@@ -35,58 +34,60 @@ const Auth = () => {
 const MainStack = createNativeStackNavigator();
 
 const Main = () => {
+  const { session } = useContext(AuthContext);
+  const [firstName, setFirstName] = useState(null);
+
+  useEffect(() => {
+    const fetchFirstName = async () => {
+      if (session && session.user) {
+        try {
+          let { data, error, status } = await supabase
+            .from('profiles')
+            .select(`first_name`)
+            .eq('id', session.user.id)
+            .single();
+
+          if (error && status !== 406) {
+            throw error;
+          }
+
+          if (data.first_name) {
+            setFirstName(data.first_name); // Set the first name in state
+          } else {
+            setFirstName(null); // Set null if the first name is not available
+          }
+        } catch (error) {
+          setFirstName(null); // Set null in case of an error
+        }
+      }
+    };
+
+    fetchFirstName(); // Call the fetch function when the component mounts
+  }, [session]);
+
   return (
     <MainStack.Navigator
       screenOptions={{
         headerShown: false,
       }}
     >
-      <MainStack.Screen name="Home" component={Home} />
+      {firstName === null ? (
+        <MainStack.Screen name="ProfileCreator" component={ProfileCreator} />
+      ) : (
+        <MainStack.Screen name="Home" component={Home} />
+      )}
     </MainStack.Navigator>
   );
 };
 
 export default () => {
-    const { session } = useContext(AuthContext);
-  
-    const fetchFirstName = async () => {
-        if (session && session.user) {
-          try {
-            let { data, error, status } = await supabase
-              .from('profiles')
-              .select(`first_name`)
-              .eq('id', session.user.id)
-              .single();
-      
-            if (error && status !== 406) {
-              throw error;
-            }
-      
-            if (data.first_name) {
-                Alert.alert("returning " + data.first_name);
-              return data.first_name; // Return the first name as a string
-            } else {
-                Alert.alert("returning null")
-              return null; // Return an empty string if the first name is not available
-            }
-          } catch (error) {
-            Alert.alert(error);
-            return null; // Return an empty string in case of an error
-          }
-        }
-        return null; // Return an empty string if there is no session or user
-      };
-      
-  
-    return (
-      <NativeBaseProvider>
-        <NavigationContainer>
-          {fetchFirstName() === null || session === null || session.user === null ? (
-            <Auth />
-          ) : (
-            <Main />
-          )}
-        </NavigationContainer>
-      </NativeBaseProvider>
-    );
-  };
+  const { session } = useContext(AuthContext);
+
+  return (
+    <NativeBaseProvider>
+      <NavigationContainer>
+        {session === null || session.user === null ? <Auth /> : <Main />}
+      </NavigationContainer>
+    </NativeBaseProvider>
+  );
+};
