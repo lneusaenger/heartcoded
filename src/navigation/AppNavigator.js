@@ -82,12 +82,11 @@ export default () => {
     return (
       <NativeBaseProvider>
         <NavigationContainer>
-          <LandingPage />
-          {/* {session === null || session.user === null || firstName === null ? (
+          {session === null || session.user === null || firstName === null ? (
             <Auth />
           ) : (
             <Main />
-          )} */}
+          )}
         </NavigationContainer>
       </NativeBaseProvider>
     );
