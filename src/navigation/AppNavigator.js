@@ -19,7 +19,7 @@ import Home from "../screens/main/Home";
 import ProfileCreator from "../screens/main/ProfileCreator";
 
 //Import Components
-import LandingPage from "../components/LandingPage";
+import LandingPage from "../screens/main/LandingPage";
 
 
 const AuthStack = createNativeStackNavigator();
@@ -79,10 +79,13 @@ const Main = () => {
       {firstName === null ? (
         <MainStack.Screen name="ProfileCreator" component={ProfileCreator} />
       ) : (
-        <MainStack.Screen name="Home" component={Home} />
+        <>
+          <MainStack.Screen name="LandingPage" component={LandingPage} />
+          <MainStack.Screen name="Home" component={Home} />
+        </>
       )}
     </MainStack.Navigator>
-  );
+  );  
 };
 
 export default () => {

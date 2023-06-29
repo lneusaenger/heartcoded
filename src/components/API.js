@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Text, View, TextInput, Button, StyleSheet } from "react-native";
+import {Button} from 'native-base'
+import { Text, View, TextInput, StyleSheet } from "react-native";
 
 const API_URL = "https://api-inference.huggingface.co/models/gpt2";
 const API_TOKEN = "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"; // Replace with your actual Hugging Face API token
@@ -73,7 +74,7 @@ export default function API() {
         onChangeText={handleInputChange}
         value={inputText}
       />
-      <Button title="Submit" onPress={handleApiCall} />
+      <Button variant = "outline" colorScheme={'rose'} title="Submit" onPress={handleApiCall}>SUBMIT</Button>
       {apiResponse && (
         <Text style={styles.responseText}>
           API response: {JSON.stringify(apiResponse)}
