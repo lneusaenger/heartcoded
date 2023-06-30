@@ -3,7 +3,7 @@ import { supabase } from '../../supabase';
 import { StyleSheet, View, Alert } from 'react-native';
 import { AuthContext } from '../../provider/AuthProvider';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { Radio, Stack, TextArea, Center, Heading, ScrollView, VStack, Divider, Select, Button, FormControl, Input, WarningOutlineIcon, Box} from "native-base";
+import { Radio, HStack, Stack, TextArea, Center, Heading, ScrollView, VStack, Divider, Select, Button, FormControl, Input, WarningOutlineIcon, Box} from "native-base";
 import { NativeBaseProvider } from 'native-base';
 import { Text } from 'react-native';
 import Avatar from '../../components/Avatar';
@@ -11,14 +11,6 @@ import Avatar from '../../components/Avatar';
 export default function Profile({navigation}) {
   const {session} = useContext(AuthContext);
   const [myAge, setAge] = useState(0);
-
-  const onDateChange = (event, selectedDate) => {
-    if (event?.type === 'dismissed') {
-      setBirthday(birthday);
-      return;
-  }
-    setBirthday(selectedDate);
-  };
 
   const submitEvent = () => {
     updateProfile({first_name, birthday, interest1, interest2, interest3, bio, secrets, gender, preference, avatar})
@@ -38,6 +30,7 @@ export default function Profile({navigation}) {
   
   useEffect(() => {
     if (session) getProfile();
+    setAge(getAge());
   }, [session]);
 
   async function getProfile() {
@@ -229,7 +222,10 @@ export default function Profile({navigation}) {
           </Stack>
         </FormControl>
       </Box>
-      <Button style={styles.button} onPress={submitEvent} variant = "outline" colorScheme={'rose'}>UPDATE PROFILE</Button>
+      <HStack>
+      <Button style={styles.button} onPress={() => supabase.auth.signOut()} colorScheme={'rose'} >LOGOUT</Button>
+      <Button style={styles.button} onPress={submitEvent} colorScheme={'rose'}>UPDATE PROFILE</Button>
+      </HStack>
     </Box>
     </View>
     </KeyboardAwareScrollView>
@@ -256,6 +252,8 @@ const styles = StyleSheet.create({
   },
   button:{
     marginTop: 10,
-    marginBottom: 20
+    marginBottom: 20,
+    marginLeft: 5,
+    marginRight: 5
   }
 });

@@ -15,7 +15,7 @@ import Login from "../screens/auth/Login";
 import Signup from "../screens/auth/Signup";
 
 // Main Screens
-import Home from "../screens/main/Home";
+import Dashboard from "../screens/main/Dashboard";
 import ProfileCreator from "../screens/main/ProfileCreator";
 import LandingPage from "../screens/main/LandingPage";
 
@@ -90,8 +90,8 @@ const Main = () => {
               <MaterialIcons name="flight-land" color='deeppink' size={size} />
             ),
           }} />
-          <MainStack.Screen name = "Home"
-          component={Home}
+          <MainStack.Screen name = "Dashboard"
+          component={Dashboard}
           options={{
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="home" color='deeppink' size={size} />
