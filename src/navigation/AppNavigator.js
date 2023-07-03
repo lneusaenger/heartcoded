@@ -94,7 +94,7 @@ const Main = () => {
           component={Dashboard}
           options={{
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="home" color='deeppink' size={size} />
+              <Ionicons name="heart" color='deeppink' size={size} />
             ),
           }} />
           <MainStack.Screen name="Profile"
