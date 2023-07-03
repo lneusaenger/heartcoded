@@ -18,6 +18,7 @@ import Signup from "../screens/auth/Signup";
 import Dashboard from "../screens/main/Dashboard";
 import ProfileCreator from "../screens/main/ProfileCreator";
 import LandingPage from "../screens/main/LandingPage";
+import ChatScreen from "../screens/ChatScreen";
 
 
 const AuthStack = createNativeStackNavigator();
@@ -102,6 +103,13 @@ const Main = () => {
           options={{
             tabBarIcon: ({ color, size }) => (
               <MaterialIcons name="face-retouching-natural" color='deeppink' size={size} />
+            ),
+          }} />
+          <MainStack.Screen name="Chat"
+          component={ChatScreen}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="chatbox-ellipses-outline" color='deeppink' size={size} />
             ),
           }} />
         </>
