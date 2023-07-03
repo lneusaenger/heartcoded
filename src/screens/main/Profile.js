@@ -29,8 +29,11 @@ export default function Profile({navigation}) {
   const [avatar, setAvatar] = useState('');
   
   useEffect(() => {
-    if (session) getProfile();
-    setAge(getAge());
+    const fetchData = async () => {
+        await getProfile();
+        setAge(getAge());
+        }
+    fetchData();
   }, [session]);
 
   async function getProfile() {
