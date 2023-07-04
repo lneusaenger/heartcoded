@@ -19,8 +19,7 @@ import Dashboard from "../screens/main/Dashboard";
 import ProfileCreator from "../screens/main/ProfileCreator";
 import LandingPage from "../screens/main/LandingPage";
 import ChatScreen from "../screens/main/ChatScreen";
-
-
+import ChatLanding from "../screens/main/ChatLanding";
 
 const AuthStack = createNativeStackNavigator();
 
@@ -70,53 +69,68 @@ const Main = () => {
     fetchFirstName(); // Call the fetch function when the component mounts
   }, [session]);
 
-  const MainStack = createBottomTabNavigator();
+  const MainTab = createBottomTabNavigator();
 
   return (
-    <MainStack.Navigator
+    <MainTab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarLabelStyle: { //remove this if you want the tab labels to show
-            display: "none"
-          },
+        tabBarLabelStyle: { display: "none" }, // Remove this line if you want to show tab labels
       }}
     >
       {firstName === null ? (
-        <MainStack.Screen name="ProfileCreator" component={ProfileCreator} />
+        <MainTab.Screen name="ProfileCreator" component={ProfileCreator} />
       ) : (
         <>
-          <MainStack.Screen name="LandingPage"
-          component={LandingPage}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <MaterialIcons name="flight-land" color='deeppink' size={size} />
-            ),
-          }} />
-          <MainStack.Screen name = "Dashboard"
-          component={Dashboard}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="heart" color='deeppink' size={size} />
-            ),
-          }} />
-          <MainStack.Screen name="Profile"
-          component={Profile}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <MaterialIcons name="face-retouching-natural" color='deeppink' size={size} />
-            ),
-          }} />
-          <MainStack.Screen name="Chat"
-          component={ChatScreen}
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="chatbox-ellipses-outline" color='deeppink' size={size} />
-            ),
-          }} />
+          <MainTab.Screen
+            name="LandingPage"
+            component={LandingPage}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <MaterialIcons name="flight-land" color='deeppink' size={size} />
+              ),
+            }}
+          />
+          <MainTab.Screen
+            name="Dashboard"
+            component={Dashboard}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <Ionicons name="heart" color='deeppink' size={size} />
+              ),
+            }}
+          />
+          <MainTab.Screen
+            name="Profile"
+            component={Profile}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <MaterialIcons name="face-retouching-natural" color='deeppink' size={size} />
+              ),
+            }}
+          />
+          <MainTab.Screen
+            name="ChatLanding"
+            component={ChatLanding}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <Ionicons name="chatbox-ellipses-outline" color='deeppink' size={size} />
+              ),
+            }}
+          />
+          <MainTab.Screen
+            name="ChatScreen"
+            component={ChatScreen}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <Ionicons name="chatbox-ellipses-outline" color='deeppink' size={size} />
+              ),
+            }}
+          />
         </>
       )}
-    </MainStack.Navigator>
-  );  
+    </MainTab.Navigator>
+  );
 };
 
 export default () => {
