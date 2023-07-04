@@ -18,7 +18,8 @@ import Signup from "../screens/auth/Signup";
 import Dashboard from "../screens/main/Dashboard";
 import ProfileCreator from "../screens/main/ProfileCreator";
 import LandingPage from "../screens/main/LandingPage";
-import ChatScreen from "./ChatStack";
+import ChatScreen from "../screens/main/ChatScreen";
+
 
 
 const AuthStack = createNativeStackNavigator();
