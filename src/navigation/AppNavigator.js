@@ -9,6 +9,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import Profile from "../screens/main/Profile";
 import { MaterialIcons } from '@expo/vector-icons';
+import MatchProfile from "../components/MatchProfile";
 
 // Auth screens
 import Login from "../screens/auth/Login";
@@ -34,9 +35,9 @@ const Auth = () => {
   );
 };
 
-const MainStack = createNativeStackNavigator();
+const MainTabStack = createBottomTabNavigator();
 
-const Main = () => {
+const MainTabsNavigator = () => {
   const { session } = useContext(AuthContext);
   const [firstName, setFirstName] = useState(null);
 
@@ -68,10 +69,8 @@ const Main = () => {
     fetchFirstName(); // Call the fetch function when the component mounts
   }, [session]);
 
-  const MainStack = createBottomTabNavigator();
-
   return (
-    <MainStack.Navigator
+    <MainTabStack.Navigator
       screenOptions={{
         headerShown: false,
         tabBarLabelStyle: { //remove this if you want the tab labels to show
@@ -80,24 +79,24 @@ const Main = () => {
       }}
     >
       {firstName === null ? (
-        <MainStack.Screen name="ProfileCreator" component={ProfileCreator} />
+        <MainTabStack.Screen name="ProfileCreator" component={ProfileCreator} />
       ) : (
         <>
-          <MainStack.Screen name="LandingPage"
+          <MainTabStack.Screen name="LandingPage"
           component={LandingPage}
           options={{
             tabBarIcon: ({ color, size }) => (
               <MaterialIcons name="flight-land" color='deeppink' size={size} />
             ),
           }} />
-          <MainStack.Screen name = "Dashboard"
+          <MainTabStack.Screen name = "Dashboard"
           component={Dashboard}
           options={{
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="heart" color='deeppink' size={size} />
             ),
           }} />
-          <MainStack.Screen name="Profile"
+          <MainTabStack.Screen name="Profile"
           component={Profile}
           options={{
             tabBarIcon: ({ color, size }) => (
@@ -106,9 +105,29 @@ const Main = () => {
           }} />
         </>
       )}
-    </MainStack.Navigator>
+    </MainTabStack.Navigator>
   );  
 };
+
+const MainStack = createNativeStackNavigator();
+
+const Main = () => {
+  return (
+      <MainStack.Navigator mode="modal">
+        <MainStack.Screen
+          name="MainTabs"
+          component={MainTabsNavigator} //tabs
+          options={{ headerShown: false }}
+        />
+        <MainStack.Screen
+          name="MatchProfile"
+          component={MatchProfile} //not a tab but just a screen
+          options={{ headerShown: false }}
+        />
+      </MainStack.Navigator>
+  );
+};
+
 
 export default () => {
   const { session } = useContext(AuthContext);

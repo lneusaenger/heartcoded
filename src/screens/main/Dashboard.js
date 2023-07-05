@@ -1,5 +1,5 @@
 //needs full overhaul
-import { View, StyleSheet, Alert, Text} from "react-native";
+import { View, StyleSheet, Alert, Text, TouchableOpacity} from "react-native";
 import { AuthContext } from "../../provider/AuthProvider";
 import { useContext, useState, useEffect } from "react";
 import {Button, Stack, Heading, Box} from 'native-base'
@@ -41,12 +41,18 @@ useEffect(() => {
   fetchMatches();
 }, [session]);
 
+const handleMatchCardPress = (matchID) => {
+  navigation.navigate('MatchProfile', { matchID: matchID});
+};
+
 return (
   <KeyboardAwareScrollView style={styles.container}>
     <Box alignItems = "center">
-    <Heading size="xl" style = {styles.heading}>Your Matches</Heading>
+    <Heading size="3xl" style = {styles.heading}>MATCHES</Heading>
     {matches && matches.map((matchID) => (
-      <MatchCard key={matchID} matchID = {matchID}/>
+      <TouchableOpacity key = {matchID} onPress={() => handleMatchCardPress(matchID)}>
+        <MatchCard key={matchID} matchID = {matchID}/>
+      </TouchableOpacity>
     ))}
     </Box>
   </KeyboardAwareScrollView>
@@ -56,8 +62,7 @@ return (
 const styles = StyleSheet.create({
     container: {
       padding: 12,
-      alignContent: 'center',
-      backgroundColor: 'lightpink'
+      alignContent: 'center'
     },
     heading: {
       marginTop: 40
