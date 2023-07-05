@@ -10,7 +10,6 @@ import Avatar from '../../components/Avatar';
 
 export default function Profile({navigation}) {
   const {session} = useContext(AuthContext);
-  const [myAge, setAge] = useState(0);
 
   const submitEvent = () => {
     updateProfile({first_name, birthday, interest1, interest2, interest3, bio, secrets, gender, preference, avatar})
@@ -18,7 +17,7 @@ export default function Profile({navigation}) {
 
   const [loading, setLoading] = useState(true);
   const [first_name, setFirstName] = useState('');
-  const [birthday, setBirthday] = useState('09-10-2021');
+  const [birthday, setBirthday] = useState(null);
   const [interest1, setInterest1] = useState('');
   const [interest2, setInterest2] = useState('');
   const [interest3, setInterest3] = useState('');
@@ -27,11 +26,11 @@ export default function Profile({navigation}) {
   const [gender, setGender] = useState("man");
   const [preference, setPreference] = useState("women");
   const [avatar, setAvatar] = useState('');
+  const [myAge, setAge] = useState(null);
   
   useEffect(() => {
     const fetchData = async () => {
         await getProfile();
-        setAge(getAge());
         }
     fetchData();
   }, [session]);
@@ -52,7 +51,15 @@ export default function Profile({navigation}) {
       if (data) {
         setFirstName(data.first_name);
         setBirthday(data.birthday);
-        setAge(getAge());
+        //getting age
+        var today = new Date();
+        var birthDate = new Date(data.birthday);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        setAge(age);
         setInterest1(data.interest1);
         setInterest2(data.interest2);
         setInterest3(data.interest3);
@@ -109,15 +116,7 @@ export default function Profile({navigation}) {
   }
 
   function getAge() {
-    var today = new Date();
-    var birthDate = new Date(birthday);
-    var age = today.getFullYear() - birthDate.getFullYear();
-    var m = today.getMonth() - birthDate.getMonth();
     
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-    }
-    return age;
   }
   
 
