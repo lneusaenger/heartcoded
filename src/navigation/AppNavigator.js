@@ -118,15 +118,7 @@ const Main = () => {
               ),
             }}
           />
-          <MainTab.Screen
-            name="ChatScreen"
-            component={ChatScreen}
-            options={{
-              tabBarIcon: ({ color, size }) => (
-                <Ionicons name="chatbox-ellipses-outline" color='deeppink' size={size} />
-              ),
-            }}
-          />
+          
         </>
       )}
     </MainTab.Navigator>
