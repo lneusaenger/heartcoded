@@ -19,6 +19,8 @@ import Signup from "../screens/auth/Signup";
 import Dashboard from "../screens/main/Dashboard";
 import ProfileCreator from "../screens/main/ProfileCreator";
 import LandingPage from "../screens/main/LandingPage";
+import ChatScreen from "../screens/main/ChatScreen";
+import ChatLanding from "../screens/main/ChatLanding";
 
 
 const AuthStack = createNativeStackNavigator();
@@ -89,6 +91,13 @@ const MainTabsNavigator = () => {
               <MaterialIcons name="flight-land" color='deeppink' size={size} />
             ),
           }} />
+          <MainTabStack.Screen name="ChatLanding"
+          component={ChatLanding}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="chatbox-ellipses-outline" color='deeppink' size={size} />
+            ),
+          }} />
           <MainTabStack.Screen name = "Dashboard"
           component={Dashboard}
           options={{
@@ -103,6 +112,7 @@ const MainTabsNavigator = () => {
               <MaterialIcons name="face-retouching-natural" color='deeppink' size={size} />
             ),
           }} />
+          
         </>
       )}
     </MainTabStack.Navigator>
@@ -124,6 +134,12 @@ const Main = () => {
           component={MatchProfile} //not a tab but just a screen
           options={{ headerShown: false }}
         />
+        <MainStack.Screen
+          name="ChatScreen"
+          component={ChatScreen} //not a tab but just a screen
+          options={{ headerShown: false }}
+        />
+
       </MainStack.Navigator>
   );
 };

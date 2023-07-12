@@ -7,13 +7,17 @@ import { useNavigation } from "@react-navigation/native";
 export default function ChatLanding() {
   const navigation = useNavigation();
   const handleChatButtonPress = () => {
-    navigation.navigate("ChatScreen");
+    navigation.navigate("/ChatScreen");
   };
 
   return (
     <KeyboardAwareScrollView>
-      <View>
-        <Button colorScheme="rose" onPress={handleChatButtonPress}>
+      <View style={{ paddingHorizontal: 20, paddingTop: 20 }}>
+        <Button
+          colorScheme="rose"
+          style={{ padding: 15, borderRadius: 10, backgroundColor: "blue" }}
+          onPress={handleChatButtonPress}
+        >
           Chat with [User]
         </Button>
       </View>
