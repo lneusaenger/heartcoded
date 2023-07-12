@@ -9,6 +9,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import Profile from "../screens/main/Profile";
 import { MaterialIcons } from '@expo/vector-icons';
+import MatchProfile from "../components/MatchProfile";
 
 // Auth screens
 import Login from "../screens/auth/Login";
@@ -18,8 +19,7 @@ import Signup from "../screens/auth/Signup";
 import Dashboard from "../screens/main/Dashboard";
 import ProfileCreator from "../screens/main/ProfileCreator";
 import LandingPage from "../screens/main/LandingPage";
-import ChatScreen from "../screens/main/ChatScreen";
-import ChatLanding from "../screens/main/ChatLanding";
+
 
 const AuthStack = createNativeStackNavigator();
 
@@ -35,9 +35,9 @@ const Auth = () => {
   );
 };
 
-const MainStack = createNativeStackNavigator();
+const MainTabStack = createBottomTabNavigator();
 
-const Main = () => {
+const MainTabsNavigator = () => {
   const { session } = useContext(AuthContext);
   const [firstName, setFirstName] = useState(null);
 
@@ -69,61 +69,65 @@ const Main = () => {
     fetchFirstName(); // Call the fetch function when the component mounts
   }, [session]);
 
-  const MainTab = createBottomTabNavigator();
-
   return (
-    <MainTab.Navigator
+    <MainTabStack.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarLabelStyle: { display: "none" }, // Remove this line if you want to show tab labels
+        tabBarLabelStyle: { //remove this if you want the tab labels to show
+            display: "none"
+          },
       }}
     >
       {firstName === null ? (
-        <MainTab.Screen name="ProfileCreator" component={ProfileCreator} />
+        <MainTabStack.Screen name="ProfileCreator" component={ProfileCreator} />
       ) : (
         <>
-          <MainTab.Screen
-            name="LandingPage"
-            component={LandingPage}
-            options={{
-              tabBarIcon: ({ color, size }) => (
-                <MaterialIcons name="flight-land" color='deeppink' size={size} />
-              ),
-            }}
-          />
-          <MainTab.Screen
-            name="Dashboard"
-            component={Dashboard}
-            options={{
-              tabBarIcon: ({ color, size }) => (
-                <Ionicons name="heart" color='deeppink' size={size} />
-              ),
-            }}
-          />
-          <MainTab.Screen
-            name="Profile"
-            component={Profile}
-            options={{
-              tabBarIcon: ({ color, size }) => (
-                <MaterialIcons name="face-retouching-natural" color='deeppink' size={size} />
-              ),
-            }}
-          />
-          <MainTab.Screen
-            name="ChatLanding"
-            component={ChatLanding}
-            options={{
-              tabBarIcon: ({ color, size }) => (
-                <Ionicons name="chatbox-ellipses-outline" color='deeppink' size={size} />
-              ),
-            }}
-          />
-          
+          <MainTabStack.Screen name="LandingPage"
+          component={LandingPage}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <MaterialIcons name="flight-land" color='deeppink' size={size} />
+            ),
+          }} />
+          <MainTabStack.Screen name = "Dashboard"
+          component={Dashboard}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="heart" color='deeppink' size={size} />
+            ),
+          }} />
+          <MainTabStack.Screen name="Profile"
+          component={Profile}
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <MaterialIcons name="face-retouching-natural" color='deeppink' size={size} />
+            ),
+          }} />
         </>
       )}
-    </MainTab.Navigator>
+    </MainTabStack.Navigator>
+  );  
+};
+
+const MainStack = createNativeStackNavigator();
+
+const Main = () => {
+  return (
+      <MainStack.Navigator mode="modal">
+        <MainStack.Screen
+          name="MainTabs"
+          component={MainTabsNavigator} //tabs
+          options={{ headerShown: false }}
+        />
+        <MainStack.Screen
+          name="MatchProfile"
+          component={MatchProfile} //not a tab but just a screen
+          options={{ headerShown: false }}
+        />
+      </MainStack.Navigator>
   );
 };
+
 
 export default () => {
   const { session } = useContext(AuthContext);

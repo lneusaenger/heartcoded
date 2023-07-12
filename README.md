@@ -10,4 +10,7 @@ If Alex has Cocopods error:
  4274  npx expo start
  4275  npx expo install react-native-screens@~3.20.0
  4276  npx expo install react-native-web@~0.18.10
- 4277  expo run:ios 
+ 4277  expo run:ios ```
+
+## Date Time Picker Module Error
+```npm install react-native
